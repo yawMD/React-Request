@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body{
+        @apply bg-riverBackground font-sans;
+        min-height: 700px;
+    }
+}
+
+@layer components {
+    .logoutButton {
+        @apply text-riverBlack md:px-4 md:py-2 py-4 font-normal text-center;
+        background-color: #F4F5F5;
+    }
+
+    .copyContainer {
+        @apply px-5 py-3 text-sm text-riverBlack font-medium rounded w-full;
+        background-color: #F7F8F8;
+    }
+
+    .cardPurple {
+        color: #9C6ADE;
+    }
+
+    .lightOrange {
+        background-color: #FDEFE2;
+    }
+
+    .textOrange {
+        color: #F39342;
+    }
+
+    .center {
+        @apply flex items-center justify-center
+    }
+
+    .textGreen {
+        color: #43C42F;
+    }
+
+    .loginBanner {
+        background: url("/imgs/Header.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .inputElement {
+        @apply bg-gray-200 appearance-none text-center block w-full py-3 px-2 rounded
+        shadow-sm placeholder-gray-400 focus:outline-none focus:ring-riverBlue border
+        focus:border-riverBlue sm:text-sm focus:bg-white focus:shadow ;
+    }
+
+    .subText {
+        @apply font-normal text-sm text-center tracking-wide leading-relaxed;
+        color: #515151;
+    }
+
+    .overviewIcon {
+        @apply xl:h-12 xl:w-12 lg:w-10 lg:h-10 h-8 w-8;
+    }
+
+    .error-label {
+        @apply font-light text-red-500 text-center mt-2 w-full text-xs;
+        font-size: 13px;
+    }
+
+    .PhoneInput input {
+        @apply border py-3 px-5 text-sm text-center rounded outline-none w-full bg-gray-200;
+    }
+
+    .requestInput input {
+        @apply border py-3 px-5 text-sm text-left rounded outline-none w-full bg-gray-200;
+    }
+
+    .requestInput textarea {
+        @apply border py-3 px-5 text-sm text-left rounded outline-none w-full bg-gray-200;
+    }
+
+    .table-header__col {
+        @apply pr-6 py-5 text-left text-xs font-semibold tracking-wider;
+    }
+
+    .table-body__col {
+        @apply pr-6 py-4 whitespace-nowrap text-sm font-normal text-riverDeepGray;
+    }
+
+}

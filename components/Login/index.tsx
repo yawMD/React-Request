@@ -50,7 +50,7 @@ const LoginScreen = () => {
                 )}
                 <div className="py-16 md:px-16 px-10 space-y-16 relative">
                   <div className="flex flex-col justify-center items-center space-y-2">
-                    <img src="/imgs/logo.svg" className="h-10" alt="river logo" />
+                    <img src="/imgs/logo.png" className="h-24" alt="river logo" />
                   </div>
                   <div className="center mt-8">
                     <h2 className="font-semibold text-riverBlack text-xl">Welcome Back</h2>

@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { UserContext } from '../Layout'
+import { useRouter } from 'next/router'
 
 const Navbar = () => {
   const headerRef = useRef<HTMLDivElement>(null)
   const [isSticky, setIsSticky] = useState<boolean>(false)
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const user = React.useContext(UserContext)
+  const router = useRouter()
 
   const setNavBarSticky = () => {
     if (headerRef && headerRef.current) {
@@ -22,9 +24,8 @@ const Navbar = () => {
   }, [])
 
   const logoutUser = () => {
-    //   removeUser()
-    //   logout()
-    //   history.push('/')
+    localStorage.removeItem('user')
+    router.push('/auth/login')
   }
 
   return (
@@ -97,7 +98,7 @@ const Navbar = () => {
       <div className="max-w-1440 mx-auto py-6 px-2 sm:px-6 lg:px-8 flex justify-between">
         <Link href={'/'}>
           <a className="inline-block flex justify-center items-center">
-            <img src={'/imgs/logo.svg'} className="h-6 w-20" alt="river logo" />
+            <img src={'/imgs/logo.png'} className="h-16 w-28" alt="river logo" />
           </a>
         </Link>
 

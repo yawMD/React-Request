@@ -12,7 +12,11 @@ const Login = () => {
       const user = JSON.parse(userString) as unknown as User
       if (user) {
         router.push('/user')
+      } else {
+        router.push('/auth/login')
       }
+    } else {
+      router.push('/auth/login')
     }
   }, [])
 

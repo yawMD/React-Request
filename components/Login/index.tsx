@@ -22,6 +22,7 @@ const LoginScreen = () => {
           password: '',
         }}
         validateOnBlur={false}
+        validateOnChange={false}
         validationSchema={validationSchema}
         onSubmit={async (values, formik) => {
           try {
@@ -31,7 +32,7 @@ const LoginScreen = () => {
               password: values.password,
             })
             localStorage.setItem('user', JSON.stringify(res.data.data))
-            router.push('/user')
+            router.push('/user').catch()
             setSubmitting(false)
           } catch (e) {
             formik.setErrors({})

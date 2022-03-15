@@ -110,18 +110,41 @@ const Navbar = () => {
             {/*<MenuIcon className="h-6 w-6" aria-hidden="true" />*/}
           </div>
           <ul className=" hidden md:flex items-center space-x-8">
-            <li>
-              <Link href="/user">
-                <a className="inline-block text-riverMainGray text-sm font-normal">Home</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/user/request">
-                <a className="inline-block text-riverMainGray text-sm font-normal">
-                  Make a Request
-                </a>
-              </Link>
-            </li>
+            {user && user.user.admin ? (
+              <>
+                <li>
+                  <Link href="/user">
+                    <a className="inline-block text-riverMainGray text-sm font-normal">Home</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/user/all-users">
+                    <a className="inline-block text-riverMainGray text-sm font-normal">Users</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/user/add-user">
+                    <a className="inline-block text-riverMainGray text-sm font-normal">Add User</a>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link href="/user">
+                    <a className="inline-block text-riverMainGray text-sm font-normal">Home</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/user/request">
+                    <a className="inline-block text-riverMainGray text-sm font-normal">
+                      Make a Request
+                    </a>
+                  </Link>
+                </li>
+              </>
+            )}
+
             <li className="logoutButton text-sm font-semibold">
               <div onClick={logoutUser} className="cursor-pointer">
                 Logout

@@ -1,5 +1,5 @@
+//@ts-nocheck
 import React, { useContext, useEffect } from 'react'
-import { members } from './members'
 import Panel from '../Panel'
 import { PuffLoader } from 'react-spinners'
 import axios from 'axios'
@@ -14,11 +14,11 @@ export interface Requests {
   createdAt: string
 }
 
-const Members = () => {
+const Users = () => {
   const [isFetching, setIsFetching] = React.useState<boolean>(false)
-  const [requests, setRequests] = React.useState<Requests[]>([])
+  const [requests, setRequests] = React.useState<User[]>([])
   const [viewMessage, setViewMessage] = React.useState<boolean>(false)
-  const [selectedMessage, setSelectedMessage] = React.useState<Requests>()
+  const [selectedMessage, setSelectedMessage] = React.useState<User>()
   const [user, setUser] = React.useState<any>()
 
   useEffect(() => {
@@ -30,11 +30,7 @@ const Members = () => {
           const user = JSON.parse(userString) as unknown as User
           setUser(user)
 
-          let requestString = 'http://localhost:3001/request/user'
-          // @ts-ignore
-          if (user.user.admin) {
-            requestString = 'http://localhost:3001/request/all'
-          }
+          let requestString = 'http://localhost:3001/user/all'
 
           const req = await axios.get(requestString, {
             headers: {
@@ -54,9 +50,9 @@ const Members = () => {
 
   return (
     <>
-      {viewMessage && (
-        <ViewMessage user={user} request={selectedMessage} setOpen={setViewMessage} />
-      )}
+      {/*{viewMessage && (*/}
+      {/*  <ViewMessage user={user} request={selectedMessage} setOpen={setViewMessage} />*/}
+      {/*)}*/}
 
       <div className="mb-5">
         {requests && (
@@ -81,30 +77,43 @@ const Members = () => {
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Title
+                        Name
                       </th>
-                      {user && user.user.admin && (
-                        <>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                          >
-                            User
-                          </th>
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                          >
-                            Email
-                          </th>
-                        </>
-                      )}
-
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Email
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Phone Number
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Company
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Department
+                      </th>
                       <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Date
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Actions
                       </th>
                     </tr>
                   </thead>
@@ -123,28 +132,41 @@ const Members = () => {
                             {id + 1}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                            {request.title}
+                            {request.name}
                           </td>
-                          {user && user.user.admin && (
-                            <>
-                              <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                                {
-                                  //@ts-ignore
-                                  request.user.name
-                                }
-                              </td>
-
-                              <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                                {
-                                  //@ts-ignore
-                                  request.user.email
-                                }
-                              </td>
-                            </>
-                          )}
-
                           <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                            {new Date(request.createdAt).toLocaleDateString()}
+                            {
+                              //@ts-ignore
+                              request.email
+                            }
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                            {
+                              //@ts-ignore
+                              request.phone_number
+                            }
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                            {
+                              //@ts-ignore
+                              request.company
+                            }
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                            {
+                              //@ts-ignore
+                              request.department
+                            }
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                            {
+                              //@ts-ignore
+                              new Date(request.createdAt).toLocaleDateString()
+                            }
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                            <button>edit</button>
+                            <button>Delete</button>
                           </td>
                         </tr>
                       ))}
@@ -159,4 +181,4 @@ const Members = () => {
   )
 }
 
-export default Members
+export default Users

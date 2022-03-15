@@ -12,12 +12,12 @@ const Home: NextPage = () => {
     if (userString) {
       const user = JSON.parse(userString) as unknown as User
       if (user) {
-        router.push('/user')
+        router.push('/user').catch()
       } else {
-        router.push('/auth/login')
+        router.push('/auth/login').catch()
       }
     } else {
-      router.push('/auth/login')
+      router.push('/auth/login').catch()
     }
   }, [])
 

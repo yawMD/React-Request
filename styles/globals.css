@@ -63,7 +63,7 @@
     }
 
     .error-label {
-        @apply font-light text-red-500 text-center mt-2 w-full text-xs;
+        @apply font-light text-red-500 text-left mt-2 w-full text-xs;
         font-size: 13px;
     }
 

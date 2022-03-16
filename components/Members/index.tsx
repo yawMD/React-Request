@@ -30,10 +30,10 @@ const Members = () => {
           const user = JSON.parse(userString) as unknown as User
           setUser(user)
 
-          let requestString = 'http://localhost:3001/request/user'
+          let requestString = `${process.env.API_REQUEST}/request/user`
           // @ts-ignore
           if (user.user.admin) {
-            requestString = 'http://localhost:3001/request/all'
+            requestString = `${process.env.API_REQUEST}/request/all`
           }
 
           const req = await axios.get(requestString, {
@@ -100,6 +100,15 @@ const Members = () => {
                         </>
                       )}
 
+                      {user && !user.user.admin && (
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Status
+                        </th>
+                      )}
+
                       <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -110,44 +119,88 @@ const Members = () => {
                   </thead>
                   <tbody className="divide-y">
                     {requests &&
-                      requests.map((request, id) => (
-                        <tr
-                          key={id}
-                          className="cursor-pointer"
-                          onClick={() => {
-                            setSelectedMessage(request)
-                            setViewMessage(true)
-                          }}
-                        >
-                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                            {id + 1}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                            {request.title}
-                          </td>
-                          {user && user.user.admin && (
-                            <>
+                      requests
+                        .sort(
+                          //@ts-ignore
+                          (sort1, sort2) => new Date(sort2.createdAt) - new Date(sort1.createdAt)
+                        )
+                        .map((request, id) => (
+                          <tr
+                            key={id}
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setSelectedMessage(request)
+                              setViewMessage(true)
+                            }}
+                          >
+                            <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                              {id + 1}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                              {request.title}
+                            </td>
+                            {user && user.user.admin && (
+                              <>
+                                <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                                  {
+                                    //@ts-ignore
+                                    request.user.name
+                                  }
+                                </td>
+
+                                <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                                  {
+                                    //@ts-ignore
+                                    request.user.email
+                                  }
+                                </td>
+                              </>
+                            )}
+
+                            {user && !user.user.admin && (
                               <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
                                 {
                                   //@ts-ignore
-                                  request.user.name
+                                  request.received ? (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="h-6 w-6 text-green-600"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                      strokeWidth={2}
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  ) : (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="h-6 w-6 text-red-600"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                      strokeWidth={2}
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  )
                                 }
                               </td>
+                            )}
 
-                              <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                                {
-                                  //@ts-ignore
-                                  request.user.email
-                                }
-                              </td>
-                            </>
-                          )}
-
-                          <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
-                            {new Date(request.createdAt).toLocaleDateString()}
-                          </td>
-                        </tr>
-                      ))}
+                            <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-normal text-riverDeepGray">
+                              {new Date(request.createdAt).toLocaleDateString()}
+                            </td>
+                          </tr>
+                        ))}
                   </tbody>
                 </table>
               )}

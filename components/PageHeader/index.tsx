@@ -3,8 +3,6 @@ import { UserContext } from '../Layout'
 
 interface Props {
   title: string
-  search: string
-  setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
 const PageHeader = (props: Props) => {

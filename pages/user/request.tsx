@@ -41,7 +41,7 @@ const Request = () => {
                 if (userString) {
                   setLoading(true)
                   const res = await axios.post(
-                    'http://localhost:3001/request',
+                    `${process.env.API_REQUEST}/request`,
                     {
                       title: values.title,
                       message: values.message,

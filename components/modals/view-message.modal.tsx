@@ -42,9 +42,46 @@ const ViewMessage = (props: Props) => {
 
           <div>
             <div className=" text-left sm:mt-5">
-              <h3 className="text-lg leading-6 font-medium " id="modal-title">
-                {props.request?.title}
-              </h3>
+              <div className="flex items-center space-x-1">
+                {
+                  //@ts-ignore
+                  props.request.received ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-red-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  )
+                }
+                <h3 className="text-lg leading-6 font-medium " id="modal-title">
+                  {props.request?.title}
+                </h3>
+              </div>
+
               <div className="mt-2">
                 <p className="text-sm text-gray-500">{props.request?.message}</p>
               </div>

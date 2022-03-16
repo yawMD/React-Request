@@ -30,7 +30,7 @@ const Users = () => {
           const user = JSON.parse(userString) as unknown as User
           setUser(user)
 
-          let requestString = 'http://localhost:3001/user/all'
+          let requestString = `${process.env.API_REQUEST}/user/all`
 
           const req = await axios.get(requestString, {
             headers: {

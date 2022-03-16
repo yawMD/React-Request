@@ -27,7 +27,7 @@ const LoginScreen = () => {
         onSubmit={async (values, formik) => {
           try {
             setSubmitting(true)
-            const res = await axios.post(`http://localhost:3001/auth/login`, {
+            const res = await axios.post(`${process.env.API_REQUEST}/auth/login`, {
               email: values.email,
               password: values.password,
             })
